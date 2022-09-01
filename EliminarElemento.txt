@@ -1,0 +1,49 @@
+void eliminarNodo(){
+    Queque *aux = new Queque;//crea un nuevo nodo auxiliar el cual nos sirvira como referencia del actual
+    aux = primero; //el auxiliar es el primero
+    Queque *aux2 = new Queque;// crea un nuevo nodo auxiliar el cual nos sirvira como referencia para decir que este es el anterior al actual
+    aux2 = NULL; //el auxiliar 2 es nulo
+    bool encontrado = false; //variable para saber si el nodo fue encontrado
+    int nodoBuscado = 0; //variable para saber el nodo a buscar
+    //variables para validar la entrada de datos que sea un digito
+    string valor, key;
+    bool estado = false;
+
+    cout << "Ingrese el nodo a eliminar: ";
+    getline(cin, valor); //obtiene la entrada del usuario para el nodo a buscar
+    key = validacionEntrada(valor); //se valida la entrada del usuario para el nodo a buscar
+    stringstream(key) >> nodoBuscado; //se convierte la entrada del usuario a un entero
+
+    //condicional para saber si la cola esta vacia
+    if (primero != NULL)// si la cola no esta vacia
+    {
+        while (aux != NULL && encontrado != true)//mientras el auxiliar no sea nulo y el nodo no fue encontrado
+        {
+            if (aux->dato == nodoBuscado)//si el dato del auxiliar es igual al nodo buscado
+            {
+                cout << "El nodo con el dato (" << nodoBuscado << ") encontrado" << endl; //mensaje para el usuario cuando el nodo fue encontrado
+                if (aux == primero)//si el auxiliar es el primero
+                {
+                    primero = primero->siguiente; // el primero es el siguiente
+                }else if (aux == ultimo)//si el auxiliar es el ultimo
+                {
+                    aux2->siguiente = NULL; // el siguiente del auxiliar 2 es nulo
+                    ultimo = aux2; //el ultimo es el auxiliar 2
+                }else{
+                    aux2->siguiente = aux->siguiente; //el siguiente del auxiliar 2 es el siguiente del auxiliar
+                }
+                cout << "El nodo fue eliminado correctamente" << endl; //mensaje para el usuario cuando el nodo fue eliminado
+                encontrado = true; //el nodo fue encontrado
+            }
+            aux2 = aux; //el auxiliar 2 es el auxiliar
+            aux = aux->siguiente; //el auxiliar es el siguiente del auxiliar
+        }
+        if (encontrado == false)//si el nodo no fue encontrado
+        {
+            cout << "El nodo no fue encontrado" << endl; //mensaje para el usuario cuando el nodo no fue encontrado
+        }
+    }else{
+        cout << "La cola esta vacia" << endl; //mensaje para el usuario cuando la cola esta vacia
+    }
+
+}
